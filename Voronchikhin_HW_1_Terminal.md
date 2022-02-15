@@ -1,4 +1,4 @@
-﻿#HW\_1Terminal
+﻿# HW\_1Terminal
 
 `	`1. Посмотреть, где я. //**pwd**
 
