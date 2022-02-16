@@ -50,55 +50,40 @@
 # Задание \*  
 ---
 1) Отправить http запрос на сервер.  
-http://162.55.220.72:5005/terminal-hw-request //curl "http://162.55.220.72:5005/get\_method?name=Dan&age=30"
+http://162.55.220.72:5005/terminal-hw-request //**curl http://162.55.220.72:5005/terminal-hw-request**  
 
-Response is:  
+## Response is:  
 ```  
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   237  100   237    0     0   1527      0 --:--:-- --:--:-- --:--:--  1538{"Intro":"Hello!! This is your the first response from server","Tasks":{"Task_1":"Send the next URL in terminal: http://162.55.220.72:5005/get_method?name=(set_your_String)&age=(set_your_number)","result":["Your_String","Your_number"]}}  
 ```  
-Second request:  
-curl "http://162.55.220.72:5005/get_method?name=Dan&age=30"  
+## Second request:  
+**curl "http://162.55.220.72:5005/get_method?name=Dan&age=30"**  
 ```  
  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100    25  100    25    0     0    127      0 --:--:-- --:--:-- --:--:--   127["Dan","30"]  
 ```
 
-1) Написать скрипт который выполнит автоматически пункты 3, 4, 5, 6, 7, 8, 13  
+## Написать скрипт который выполнит автоматически пункты 3, 4, 5, 6, 7, 8, 13  
 ```  
-\#!/bin/bash  
+\#!/bin/bash
+  
+cd /d/QA/Group27/TestScript Зайти в папку  
 
-\#Зайти в папку  
+mkdir Folder1 Folder2 Folder3 Создать 3 папки  
 
-**cd /d/QA/Group27/TestScript**  
+cd Folder1 Зайти в любую папку  
 
-\#Создать 3 папки  
+touch text1.txt text2.txt text3.txt json1.json json2.json Создать з текстовых и 2 джсон файла  
 
-**mkdir Folder1 Folder2 Folder3**  
+mkdir Papka1 Papka2 Papka3  Создать 3 папки  
 
-\#Зайти в любую папку  
+echo "Содержимое папки" Вывести список содержимого папки  
 
-**cd Folder1**  
+ls -la Переместить 2 файла из одной папки в другую  
 
-\#Создать з текстовых и 2 джсон файла  
+cd .. mv Folder1/{text1.txt,text2.txt} Folder2  
 
-**touch text1.txt text2.txt text3.txt json1.json json2.json**  
-
-\#Создать 3 папки  
-
-**mkdir Papka1 Papka2 Papka3**  
-
-\#Вывести список содержимого папки  
-
-**echo "Содержимое папки"**  
-
-**ls -la**  
-
-\#Переместить 2 файла из одной папки в другую  
-
-**cd ..**  
-
-**mv Folder1/{text1.txt,text2.txt} Folder2**  
 ```  
