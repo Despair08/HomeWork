@@ -1,0 +1,11 @@
+<title>"При монтаже обрывается шпилька запаски"</title>
+<Component>"Посадочное место запасного колеса"</Component>
+<version>"0.01:001"</version>
+<severity>"S1 blocker"</severity>
+<priority>"high"</priority>
+<status>"new"</status>
+<author>"vodanila"</author>
+<envoirenment>["Авто", "Ржавая шпилька запасного колеса", "Гайка на 22", "Ключ на 22"]</envoirenment>
+<steps>["Одеть запасное колесо на шпильку", "Затянуть гайку с моментом 13 кг/см"]</steps>
+<expected_result>"Колесо одето на шпильку, затянуто гайкой"</expected_result>
+<result>"При попытке затянуть гайку шпилька обрывается"</result>
