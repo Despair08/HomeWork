@@ -27,8 +27,13 @@ let jsonData = pm.responce.json();  //(jsonData - название переме�
 			pm.expect(jsonData.name).to.eql("Dan")  
 		});
 ```  
-
 	5. Проверить, что age в ответе равно age s request (age вбить руками.)  
+```  
+		pm.test("Check age", function() {  
+			let jsonData = pm.response.json();  
+			pm.expect(jsonData.age).to.eql(30)  
+		});  
+```  
 	6. Проверить, что salary в ответе равно salary s request (salary вбить руками.)  
 	7. Спарсить request.  
 	8. Проверить, что name в ответе равно name s request (name забрать из request.)  
