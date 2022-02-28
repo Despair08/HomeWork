@@ -282,7 +282,9 @@
 							"    pm.expect(res.name).to.eql(req.name);\r",
 							"});\r",
 							"//проверяем значение ключа name в response и request\r",
+							"\r",
 							"let age = +req.age\r",
+							"\r",
 							"pm.test(\"age response = age request\",function(){\r",
 							"    pm.expect(res.age).to.eql(age);\r",
 							"});\r",
@@ -339,11 +341,13 @@
 							"pm.environment.set(\"salary\", 700);\r",
 							"//создаем переменную salary в окружении HW_postman_2\r",
 							"\r",
-							"for (let i = 0; i < reqS.length; i++)\r",
-							"    {\r",
-							"    console.log(reqS[i]);\r",
-							"    };\r",
-							""
+							"let salary = res.salary;\r",
+							"\r",
+							"for (let n=0; n < salary.length; n++)\r",
+							"{\r",
+							"    console.log(salary[n])\r",
+							"};\r",
+							"//пишем цикл, который выводит по порядку элементы массива salary "
 						],
 						"type": "text/javascript"
 					}
@@ -378,6 +382,128 @@
 							"key": "salary",
 							"value": "700"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user_info_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"//Проверяем статус код 200\r",
+							"\r",
+							"let res = pm.response.json();\r",
+							"\r",
+							"console.log(\"response = \",res);\r",
+							"\r",
+							"let req = request.data;\r",
+							"\r",
+							"console.log(\"request = \",req);\r",
+							"\r",
+							"pm.test(\"Check json response have start_qa_salary\",function(){\r",
+							"    pm.expect(res).to.have.any.keys(\"start_qa_salary\");\r",
+							"});\r",
+							"//проверяем есть ли ключ start_qa_salary\r",
+							"\r",
+							"pm.test(\"Check json response have qa_salary_after_1.5_year\",function(){\r",
+							"    pm.expect(res).to.have.any.keys([\"qa_salary_after_1.5_year\"]);\r",
+							"});\r",
+							"//Проверяем есть ли ключ qa salary 1*5\r",
+							"\r",
+							"pm.test(\"Check json response have qa_salary_after_6_month\", function(){\r",
+							"    pm.expect(res).to.have.any.keys(\"qa_salary_after_6_months\")\r",
+							"});\r",
+							"//Проверяем есть ли ключ qa salary 0.5\r",
+							"\r",
+							"pm.test(\"Check json response have qa_salary_after_12_months\",function(){\r",
+							"    pm.expect(res).to.have.any.keys(\"qa_salary_after_12_months\");\r",
+							"});\r",
+							"//Проверяем есть ли ключ qa_salary_after_12_months\r",
+							"\r",
+							"pm.test(\"Check json response have qa_salary_after_3.5_years\",function(){\r",
+							"    pm.expect(res).to.have.any.keys([\"qa_salary_after_3.5_years\"]);\r",
+							"});\r",
+							"//Проверяем есть ли ключ qa_salary_after_3.5_years\r",
+							"\r",
+							"pm.test(\"Check json response person\",function(){\r",
+							"    pm.expect(res).to.have.any.keys(\"person\");\r",
+							"});\r",
+							"//Проверяем есть ли ключ person\r",
+							"\r",
+							"let rSal = +req.salary\r",
+							"\r",
+							"pm.test(\"start salary response = start salary reqest\",function(){\r",
+							"    pm.expect(res.start_qa_salary).to.have.eql(rSal);\r",
+							"});\r",
+							"//Проверяем равно ли значение salary в reuqest и response\r",
+							"\r",
+							"pm.test(\"qa_salary_after_6_months = salary*2\",function(){\r",
+							"    pm.expect(res.qa_salary_after_6_months).to.have.eql(rSal*2);\r",
+							"});\r",
+							"//Проверяем равно ли значение qa_salary_after_6_months salary*2\r",
+							"\r",
+							"pm.test(\"qa_salary_after_12_months = salary*2.7\",function(){\r",
+							"    pm.expect(res.qa_salary_after_12_months).to.have.eql(rSal*2.7);\r",
+							"})\r",
+							"//Проверяем равно ли значение qa_salary_after_12_months salary*2.7\r",
+							"\r",
+							"pm.test(\"qa_salary_after_1.5_year = salary*3.5\",function(){\r",
+							"    pm.expect(res[\"qa_salary_after_1.5_year\"]).to.have.eql(rSal*3.3);\r",
+							"});\r",
+							"//Проверяем верно ли утверждение qa_salary_after_1.5_year = salary*3.5\r",
+							"\r",
+							"pm.test(\"qa_salary_after_3.5_years = salary*3.8\",function(){\r",
+							"    pm.expect(res[\"qa_salary_after_3.5_years\"]).to.have.eql(rSal*3.8);\r",
+							"});\r",
+							"//Проверяем верно ли утверждение qa_salary_after_3.5_years = salary*3.8\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/user_info_2",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"user_info_2"
 					]
 				}
 			},
