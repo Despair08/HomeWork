@@ -57,11 +57,101 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"console.log(\"Response =\",jsonData);\r",
+							"\r",
+							"let req = JSON.parse(request.data);\r",
+							"console.log(\"Request =\",req);\r",
+							"\r",
 							"pm.test(\"Status 200\",function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"//Статус код 200\r",
 							"\r",
+							"let schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"properties\": {\r",
+							"        \"person\": {\r",
+							"            \"type\":\"object\",\r",
+							"            \"items\": {\r",
+							"                \"u_age\": {\r",
+							"                    \"type\":\"number\"\r",
+							"                },\r",
+							"                \"u_name\": {\r",
+							"                    \"type\": [\"string\", \"number\", \"number\"]\r",
+							"                },\r",
+							"                \"u_salary_1_5_year\": {\r",
+							"                    \"type\":\"number\"\r",
+							"                }\r",
+							"                \r",
+							"            },\r",
+							"            \"required\":[\r",
+							"                \"u_age\",\r",
+							"                \"u_name\",\r",
+							"                \"u_salary_1_5_year\"\r",
+							"            ]\r",
+							"        },\r",
+							"        \"qa_salary_after_12_months\": {\r",
+							"            \"type\":\"number\"\r",
+							"        },\r",
+							"        \"qa_salary_after_6_months\": {\r",
+							"            \"type\":\"number\"\r",
+							"        },\r",
+							"        \"start_qa_salary\": {\r",
+							"            \"type\":\"number\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\r",
+							"        \"person\",\r",
+							"        \"qa_salary_after_12_months\",\r",
+							"        \"qa_salary_after_6_months\",\r",
+							"        \"start_qa_salary\"\r",
+							"    ]\r",
+							"};\r",
+							"//задаем ожидаемую структуру json\r",
+							"\r",
+							"pm.test(`${request.name} - schema is valid`, () => {\r",
+							"  const result = tv4.validateMultiple(jsonData, schema);\r",
+							"  \r",
+							"  if(!result.valid) result.errors.forEach(error => \r",
+							"  console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
+							"  \r",
+							"  pm.expect(result.valid).to.be.true;\r",
+							"});\r",
+							"//проверяем валидность json в ответе\r",
+							"\r",
+							"let sal12 = jsonData.qa_salary_after_12_months;\r",
+							"console.log(\"Salary 1 year =\",sal12);\r",
+							"\r",
+							"let sal6 = jsonData.qa_salary_after_6_months;\r",
+							"console.log(\"Salary 6 months =\",sal6);\r",
+							"\r",
+							"//let salS = jsonData.start_qa_salary;\r",
+							"//console.log(\"Start salary =\",salS);\r",
+							"\r",
+							"let sal15 = jsonData.person.u_salary_1_5_year;\r",
+							"console.log(\"Salary 1.5 year =\",sal15);\r",
+							"\r",
+							"let salary = +req.salary\r",
+							"\r",
+							"pm.test(\"Salary 1 year = salary*2.9\",function(){\r",
+							"    pm.expect(sal12).to.have.eql(salary*2.9);\r",
+							"});\r",
+							"//Проверка коэффицента salary 12 months\r",
+							"\r",
+							"pm.test(\"Salary 6 month = salary*2\",function(){\r",
+							"    pm.expect(sal6).to.have.eql(salary*2);\r",
+							"});\r",
+							"//Проверка коэффицента salary 6 months\r",
+							"\r",
+							"pm.test(\"Salary 1.5 year = salary*4\",function(){\r",
+							"    pm.expect(sal15).to.have.eql(salary*4);\r",
+							"});\r",
+							"//Проверка коэффицента salary 1.5 year\r",
+							"\r",
+							"let salaryY\r",
+							"pm.environment.set(\"salaryY\", sal15);\r",
+							"//Записываем в salaryY значение salary 1.5 year и передаем в окружение\r",
 							""
 						],
 						"type": "text/javascript"
@@ -73,7 +163,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"age\":30,\r\n    \"salary\":700,\r\n    \"name\":\"Dan\",\r\n    \"auth_token\":\"{{token}}\"\r\n}",
+					"raw": "{\r\n    \"age\":\"{{age}}\",\r\n    \"salary\":\"{{salary}}\",\r\n    \"name\":\"{{name}}\",\r\n    \"auth_token\":\"{{token}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,6 +177,372 @@
 					],
 					"path": [
 						"user_info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/new_data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response.json();\r",
+							"console.log(\"Response =\",res);\r",
+							"\r",
+							"let req = request.data;\r",
+							"console.log(\"Request =\",req);\r",
+							"\r",
+							"pm.test(\"Status 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"//Проверка статус кода\r",
+							"\r",
+							"let schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"properties\": {\r",
+							"        \"age\": {\r",
+							"            \"type\":\"string\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"            \"type\":\"string\",\r",
+							"        },\r",
+							"        \"salary\": {\r",
+							"            \"type\": [\"number\", \"string\", \"string\"]\r",
+							"        }\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(`${request.name} - schema is valid`, () => {\r",
+							"  const result = tv4.validateMultiple(req, schema);\r",
+							"  \r",
+							"  if(!result.valid) result.errors.forEach(error => \r",
+							"  console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
+							"  \r",
+							"  pm.expect(result.valid).to.be.true;\r",
+							"});\r",
+							"//Валидация структуры json\r",
+							"\r",
+							"let sal1 = parseInt(res.salary[1]);\r",
+							"\r",
+							"let sal2 = parseInt(res.salary[2]);\r",
+							"\r",
+							"pm.test(\"Salary [1] = salary*2\",function(){\r",
+							"    pm.expect(sal1).to.have.eql(res.salary[0]*2);\r",
+							"});\r",
+							"//Проверка коэффицента salary*2\r",
+							"\r",
+							"pm.test(\"Salary [2] = salary*3\", function(){\r",
+							"    pm.expect(sal2).to.have.eql(res.salary[0]*3);\r",
+							"});\r",
+							"//Проверка коэффицента salary*3\r",
+							"\r",
+							"pm.test(\"Sal2 > sal1\",function(){\r",
+							"    pm.expect(sal2 > sal1).to.have.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Sal2 > res.salary[0]\",function(){\r",
+							"    pm.expect(sal2 > res.salary[0]).to.have.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/new_data",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"new_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/test_pet_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resp = pm.response.json();\r",
+							"console.log(resp);\r",
+							"let req = request.data;\r",
+							"console.log(req);\r",
+							"//Парсим response request и проверяем в консоли\r",
+							"\r",
+							"pm.test(\"Status 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"//Статус код 200\r",
+							"\r",
+							"console.log(typeof(resp.daily_food));\r",
+							"console.log(typeof(resp.daily_sleep));\r",
+							"//Проверить тип данных для следующих тестов\r",
+							"\r",
+							"let schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"properties\": {\r",
+							"        \"age\":{\r",
+							"            \"type\":\"number\"\r",
+							"        },\r",
+							"        \"daily_food\": {\r",
+							"            \"type\":\"number\"\r",
+							"        },\r",
+							"        \"daily_sleep\": {\r",
+							"            \"type\":\"number\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"            \"type\":\"string\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\r",
+							"        \"age\",\r",
+							"        \"daily_food\",\r",
+							"        \"daily_sleep\",\r",
+							"        \"name\"\r",
+							"    ],\r",
+							"}\r",
+							"\r",
+							"pm.test(`${request.name} - schema is valid`, () => {\r",
+							"    const result = tv4.validateMultiple(resp, schema);\r",
+							"    if(!result.valid) result.errors.forEach(error =>\r",
+							"    console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
+							"    pm.expect(result.valid).to.be.true;\r",
+							"});\r",
+							"//Валидация json\r",
+							"\r",
+							"pm.test(\"daily_food = weight*0.012\",function(){\r",
+							"    pm.expect(resp.daily_food).to.have.eql(req.weight*0.012);\r",
+							"});\r",
+							"//Проверяем коэффицент daily_food\r",
+							"\r",
+							"pm.test(\"daily_sleep = weight*2.5\",function(){\r",
+							"    pm.expect(resp.daily_sleep).to.have.eql(req.weight*2.5);\r",
+							"});\r",
+							"//Проверяем коэффицент daily_sleep\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "weight",
+							"value": "{{weight}}",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/test_pet_info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"test_pet_info"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"disabled": true
+						},
+						{
+							"key": "weight",
+							"value": "{{weight}}",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"disabled": true
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get_test_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resp = pm.response.json();\r",
+							"console.log(\"RESPONSE =\",resp);\r",
+							"let req = request.data;\r",
+							"console.log(\"REQUEST =\",req);\r",
+							"//Парсим response/request, проверяем в консоли\r",
+							"\r",
+							"pm.test(\"Status 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"//Статус код 200\r",
+							"\r",
+							"let schema = {\r",
+							"    \"type\":\"object\",\r",
+							"    \"properties\": {\r",
+							"        \"age\": {\r",
+							"            \"type\":\"string\"\r",
+							"        },\r",
+							"        \"family\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"children\": {\r",
+							"                    \"type\":\"array\",\r",
+							"                    \"items\": {\r",
+							"                        \"Alex\": {\r",
+							"                            \"type\":\"number\"\r",
+							"                        },\r",
+							"                        \"Kate\": {\r",
+							"                            \"type\":\"number\"\r",
+							"                        }\r",
+							"                    },\r",
+							"                    \"required\": [\r",
+							"                        \"Alex\",\r",
+							"                        \"Kate\"\r",
+							"                    ],\r",
+							"                },\r",
+							"                \"u_salary_1_5_year\": {\r",
+							"                    \"type\":\"number\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"required\": [\r",
+							"                \"children\",\r",
+							"                \"u_salary_1_5_year\"\r",
+							"            ],\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"            \"type\":\"string\"\r",
+							"        },\r",
+							"        \"salary\":\"number\"\r",
+							"    },\r",
+							"    \"required\": [\r",
+							"        \"age\",\r",
+							"        \"family\",\r",
+							"        \"name\",\r",
+							"        \"salary\"\r",
+							"    ],\r",
+							"}\r",
+							"\r",
+							"pm.test(`${request.name} - schema is valid`, () => {\r",
+							"    const result = tv4.validateMultiple(resp,schema);\r",
+							"    if(!result.valid) result.errors.forEach (error =>\r",
+							"    console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
+							"    pm.expect(result.valid).to.be.true;\r",
+							"});\r",
+							"//Валидация json\r",
+							"let name = pm.collectionVariables.get(\"name\");\r",
+							"console.log(name);\r",
+							"//pm.test(\"Name = name from enviorenment\", function(){\r",
+							"//    pm.expect(resp.name = {{name}}).to.be.true;\r",
+							"//});\r",
+							"\r",
+							"pm.test(\"age response = age request\",function(){\r",
+							"    pm.expect(req.age).to.have.eql(resp.age)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/get_test_user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"get_test_user"
 					]
 				}
 			},
