@@ -123,7 +123,7 @@
 							"//задаем ожидаемую структуру json\r",
 							"\r",
 							"pm.test(`${request.name} - schema is valid`, () => {\r",
-							"  const result = tv4.validateMultiple(jsonData, schema);\r",
+							"  const result = tv4.validateMultiple(jsonData, schema, true, true);\r",
 							"  \r",
 							"  if(!result.valid) result.errors.forEach(error => \r",
 							"  console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
@@ -240,7 +240,7 @@
 							"}\r",
 							"\r",
 							"pm.test(`${request.name} - schema is valid`, () => {\r",
-							"  const result = tv4.validateMultiple(res, schema);\r",
+							"  const result = tv4.validateMultiple(res, schema, true, true);\r",
 							"  \r",
 							"  if(!result.valid) result.errors.forEach(error => \r",
 							"  console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
@@ -363,7 +363,7 @@
 							"}\r",
 							"\r",
 							"pm.test(`${request.name} - schema is valid`, () => {\r",
-							"    const result = tv4.validateMultiple(resp, schema);\r",
+							"    const result = tv4.validateMultiple(resp, schema, true, true);\r",
 							"    if(!result.valid) result.errors.forEach(error =>\r",
 							"    console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
 							"    pm.expect(result.valid).to.be.true;\r",
@@ -525,7 +525,7 @@
 							"\r",
 							"\r",
 							"pm.test(`${request.name} - schema is valid`, () => {\r",
-							"    const result = tv4.validateMultiple(resp,schema);\r",
+							"    const result = tv4.validateMultiple(resp,schema, true, true);\r",
 							"    if(!result.valid) result.errors.forEach (error =>\r",
 							"    console.log(`Validation error: ${error.message}. Path: ${error.schemaPath}`));\r",
 							"    pm.expect(result.valid).to.be.true;\r",
@@ -583,97 +583,6 @@
 					],
 					"path": [
 						"get_test_user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/currency",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let req = request.data;\r",
-							"let resp = pm.response.json();\r",
-							"console.log(\"REQUEST =\",req);\r",
-							"console.log(\"RESPONSE =\",resp);\r",
-							"\r",
-							"pm.test(\"Status 200\",function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "options",
-						"value": "options",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "auth_token",
-							"value": "{{token}}",
-							"type": "text"
-						}
-					],
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/currency",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"currency"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/curr_byn",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "auth_token",
-							"value": "{{token}}",
-							"type": "text"
-						},
-						{
-							"key": "curr_code",
-							"value": "1",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{url}}/curr_byn",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"curr_byn"
 					]
 				}
 			},
