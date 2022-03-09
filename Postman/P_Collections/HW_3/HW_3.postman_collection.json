@@ -73,7 +73,7 @@
 							"    \"properties\": {\r",
 							"        \"person\": {\r",
 							"            \"type\":\"object\",\r",
-							"            \"items\": {\r",
+							"            \"properties\":{\r",
 							"                \"u_age\": {\r",
 							"                    \"type\":\"number\"\r",
 							"                },\r",
