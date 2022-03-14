@@ -5,7 +5,7 @@
    4. Отдельно:  
   
   [Граничные значения и Классы эквивалентности](https://docs.google.com/spreadsheets/d/1TcXmF_3PrPZ4AjF8d8mlxRTUF8N0QxSFBrRnSRZLkIM/edit#gid=0)  
-  [Попарное тестирование]()  
+  [Попарное тестирование](https://docs.google.com/spreadsheets/d/1LbaqYOpOgdP1_GLxOhGKPpPhUmPsGsgPVpL61C68Shs/edit#gid=0)  
     
  ## Форма
 ![Form screenshot](https://github.com/Despair08/HomeWork/blob/main/Images/msedge_2Xyx7bDe1z.png)  
