@@ -1,17 +1,17 @@
 SELECT * FROM students;
---Показать все поля и строки
+--Р’С‹РІРµСЃС‚Рё РІСЃРµ СЃС‚РѕР»Р±С†С‹ Рё СЃС‚СЂРѕРєРё
 SELECT * FROM students;
---Вывести всех студентов
+--Р’С‹РІРµСЃС‚Рё РІСЃРµС… СЃС‚СЂСѓРґРµРЅС‚РѕРІ
 SELECT id FROM students;
---Вывести ID пользователей
+--Р’С‹РІРµСЃС‚Рё ID 
 SELECT name FROM students;
---Вывести Name
+--Р’С‹РІРµСЃС‚Рё Name
 SELECT email FROM students;
---Вывести Email
+--Р’С‹РІРµСЃС‚Рё Email
 SELECT name, email FROM students;
---Вывести name, email 
+--Р’С‹РІРµСЃР»Рё name, email 
 SELECT id, name, email, created_on FROM students;
---Вывести id, name, email, created_on
+--Р’С‹РІРµСЃС‚Рё id, name, email, created_on
 SELECT name FROM students
 WHERE students.password = '12333';
 SELECT name FROM students
