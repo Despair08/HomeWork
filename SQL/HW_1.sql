@@ -1,10 +1,17 @@
 SELECT * FROM students;
+--Показать все поля и строки
 SELECT * FROM students;
+--Вывести всех студентов
 SELECT id FROM students;
+--Вывести ID пользователей
 SELECT name FROM students;
+--Вывести Name
 SELECT email FROM students;
+--Вывести Email
 SELECT name, email FROM students;
+--Вывести name, email 
 SELECT id, name, email, created_on FROM students;
+--Вывести id, name, email, created_on
 SELECT name FROM students
 WHERE students.password = '12333';
 SELECT name FROM students
