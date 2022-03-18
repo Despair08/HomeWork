@@ -62,18 +62,28 @@ WHERE id >= 137;
 --Вывести пользователей с ID больше или равно 137
 SELECT * FROM students
 WHERE id > 180 AND id < 190;
+--Вывести пользователей с ID больше 180 и меньше 190
 SELECT * FROM students
 WHERE id BETWEEN 180 AND 190;
+--Вывести пользователей с ID между 180 и 190
 /*SELECT * FROM students
 WHERE id >= 180 AND id <= 190;*/;
+
 SELECT * FROM students
 WHERE password IN ('12333','1m313','123313');
+--Вывести пользователей с password '12333','1m313','123313'
 SELECT * FROM students
 WHERE created_on IN ('2020-10-03 00:00:00','2021-05-19 00:00:00','2021-03-26 00:00:00');
+--Вывести пользователей созданных '2020-10-03 00:00:00','2021-05-19 00:00:00','2021-03-26 00:00:00'
 SELECT MIN(id) FROM students;
+--Минимальный ID
 SELECT MAX(id) FROM students;
+--Максимальный ID
 SELECT count(id) FROM students;
+--Количество пользователей
 SELECT id, name, created_on FROM students
 ORDER BY created_on;
+--ID, имя, дата создания. Сортировка по возрастанию даты
 SELECT id, name, created_on FROM students
 ORDER BY created_on DESC;
+--ID, имя, дата. Сортировка по убыванию даты
