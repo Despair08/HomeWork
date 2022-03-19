@@ -5,7 +5,7 @@
   + Математические функции  
 ___SELECT___,___ORDER BY___,___BETWEEN___,  
 ___IN___,___LIKE___  
-## [HW_2]()  
+## [HW_2](https://github.com/Despair08/HomeWork/blob/main/SQL/HW_2.sql)  
   + Создание, наполнение таблиц    
   + Изменение данных  
   + Создание связей  
