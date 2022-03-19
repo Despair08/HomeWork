@@ -220,11 +220,15 @@ VALUES  ('Junior Python developer'),
 	-id serial primary key 
 	-employee_id int not null unique (Внешний ключ для таблицы employees, поле ID)
 	-role_id int not null (Внешний ключ для таблицы roles, поле ID)*/
-	CREATE TABLE roles_employee (
+CREATE TABLE roles_employee (
 		id SERIAL PRIMARY KEY,
 		employee_id INT NOT NULL UNIQUE,
 		role_id INT NOT NULL
-	);
+);
+
+ALTER TABLE roles_employee ADD FOREIGN KEY(employee_id) REFERENCES employees(id);
+
+ALTER TABLE roles_employee ADD FOREIGN KEY(role_id) REFERENCES roles(id);
 	
 SELECT * FROM roles_employee;
 
