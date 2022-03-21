@@ -187,7 +187,8 @@ SELECT * FROM roles;
 --Поменять тип role_name с int на VARCHAR(30)
 
 ALTER TABLE roles 
-ALTER column role_name TYPE VARCHAR(30);
+ALTER column role_name TYPE VARCHAR(30)
+USING role_name::VARCHAR(30);
 
 --Заполнить таблицу roles 20 строками
 
