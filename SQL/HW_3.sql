@@ -148,3 +148,115 @@ WHERE role_name LIKE ('%Python%')
 ORDER BY salary;
 
 
+--Вывести имена и зарплаты Junior Python разработчиков
+
+SELECT employee_name AS name, monthly_salary AS salary 
+FROM salary s 
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+	JOIN employees e ON e.id = re.employee_id 
+WHERE role_name LIKE ('%Junior Python%');
+
+
+--Вывести имена и зарплаты Middle JS разработчиков
+
+
+SELECT employee_name AS name, monthly_salary AS salary 
+FROM salary s
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+	JOIN employees e ON e.id = re.employee_id 
+WHERE role_name LIKE ('%Middle JavaScript%');
+
+
+--Вывести имена и зарплаты Senior Java разработчиков
+
+SELECT employee_name AS name, monthly_salary AS salary
+	FROM employees e 
+	JOIN roles_employee re ON re.employee_id = e.id 
+	JOIN roles r ON r.id = re.role_id
+	JOIN employee_salary es ON es.employee_id = re.employee_id 
+	JOIN salary s ON s.id = es.salary_id 
+WHERE role_name LIKE ('%Senior JavaScript%');
+
+
+--Вывести зарплаты Junior QA инженеров
+
+SELECT monthly_salary AS salary 
+	FROM salary s 
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%Junior%QA%');
+
+--Вывести среднюю зарплату всех Junior специалистов
+
+SELECT AVG(monthly_salary) AS average_salary
+FROM salary s 
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%Junior%');
+
+--Вывести сумму зарплат JS разработчиков
+
+SELECT SUM(monthly_salary) AS salary_sum
+FROM salary s 
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%JavaScript%');
+
+--Вывести минимальную ЗП QA инженеров
+
+SELECT MIN(monthly_salary) AS min_salary
+FROM salary s 
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%QA%');
+
+--Вывести максимальную ЗП QA инженеров
+
+SELECT MAX(monthly_salary) AS max_salary
+FROM salary s 
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%QA%');
+
+--Вывести количество QA инженеров
+
+SELECT COUNT(employee_id) AS amount
+FROM roles_employee re 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%QA%');
+
+--Вывести количество Middle специалистов
+
+SELECT COUNT(employee_id) AS amount 
+FROM roles_employee re 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%Middle%');
+
+--Вывести количество разработчиков
+
+
+SELECT COUNT(employee_id)
+FROM roles_employee re 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%developer%');
+
+--Вывести фонд (сумму) зарплаты разработчиков
+
+SELECT SUM(monthly_salary) AS salary_fund
+FROM salary s 
+	JOIN employee_salary es ON es.salary_id = s.id 
+	JOIN roles_employee re ON re.employee_id = es.employee_id 
+	JOIN roles r ON r.id = re.role_id 
+WHERE role_name LIKE ('%developer%');
+
+
+
