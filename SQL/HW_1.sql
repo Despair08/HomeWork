@@ -26,6 +26,7 @@ WHERE name LIKE '%8';
 --Вывести пользователей,где в имени в конце есть 8
 SELECT * FROM students
 WHERE name LIKE '%a%';
+AND name LIKE '%A%';
 --Вывести пользователей, где в имени есть буква а
 SELECT * FROM students
 WHERE created_on = '2021-07-12 00:00:00';
