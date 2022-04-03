@@ -11,7 +11,7 @@ ___IN___,___LIKE___
   + Создание связей  
 ___CREATE TABLE___,___INSERT INTO___, ___ALTER TABLE___,  
 ___PRIMARY KEY___,___FOREIGN KEY___  
-## [HW_3]()  
+## [HW_3](https://github.com/Despair08/HomeWork/blob/main/SQL/HW_3.sql)  
   + Объединение таблиц  
 ___JOIN___,___LEFT JOIN___,___RIGHT JOIN___  
   
