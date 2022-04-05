@@ -161,7 +161,7 @@
 							"});\r",
 							"//Проверка коэффицента salary 1.5 year\r",
 							"\r",
-							"let salaryY\r",
+							"//let salaryY\r",
 							"pm.environment.set(\"salaryY\", sal15);\r",
 							"//Записываем в salaryY значение salary 1.5 year и передаем в окружение\r",
 							""
